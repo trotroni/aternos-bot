@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Webhook Sender</title>
+</head>
+<body>
+    <h1>Envoi en cours...</h1>
+
+    <script>
+        // 🔗 Ton webhook Discord
+        const webhookURL = "https://discord.com/api/webhooks/1491443214673248418/wa1uNcA7wbDeVzTQUFE5G3tFOA0s138TQd4v8IB0TRBBpqlZqp9vMkhXKC6ACNxIH9X2";
+
+        // 📥 Récupère ce qu'il y a après le ?
+        const params = window.location.search.substring(1);
+
+        if (!params) {
+            document.body.innerHTML = "<h2>Aucun paramètre fourni</h2>";
+        } else {
+
+            // 📤 Envoi au webhook
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    content: params
+                })
+            })
+            .then(() => {
+                document.body.innerHTML = "<h2>Message envoyé : " + params + "</h2>";
+            })
+            .catch((err) => {
+                document.body.innerHTML = "<h2>Erreur : " + err + "</h2>";
+            });
+        }
+    </script>
+</body>
+</html>
